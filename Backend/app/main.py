@@ -18,7 +18,8 @@ app = FastAPI(title="Places API", version="1.0.0")
 # CORS: 필요 시 프론트 주소로 바꾸세요 (예: http://localhost:5500)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # 개발 중엔 * 허용, 배포 시 도메인 지정 권장
+    allow_origins=["http://localhost:5173",
+                   "http://127.0.0.1:5173"],  # 개발 중엔 * 허용, 배포 시 도메인 지정 권장
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
