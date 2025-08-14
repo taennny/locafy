@@ -1,12 +1,11 @@
-/* ===== 깔끔 리파인: 기존 톤 유지 ===== */
 :root {
   --bg: #b9c5cb;
-  --panel: #7c7c7c; /* 기존 폼 배경 */
+  --panel: #7c7c7c;
   --panel-ink: #fff;
-  --ink: #0f172a; /* 본문 글자 */
+  --ink: #0f172a;
   --muted: #6b7280;
   --line: #e5e7eb;
-  --accent: rgb(33, 88, 146); /* 제목 파란색 */
+  --accent: rgb(33, 88, 146);
   --chip: #eef2f7;
   --radius: 12px;
   --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
@@ -23,14 +22,13 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0; /* 뷰포트 전체 폭 */
+  right: 0;
   height: 100px;
   z-index: 1000;
 
   display: flex;
   align-items: center;
 
-  /* 반투명 배경 + 블러 */
   background: var(--nav-bg);
   backdrop-filter: saturate(150%) blur(10px);
   -webkit-backdrop-filter: saturate(150%) blur(10px);
@@ -40,7 +38,7 @@
     inset 0 -1px 0 rgba(255, 255, 255, 0.04);
 }
 .topnav .nav-inner {
-  width: min(1100px, 100%); /* 본문 폭과 맞춤 */
+  width: min(1100px, 100%);
   margin: 0 auto;
   padding: 0 20px;
 
@@ -62,16 +60,15 @@ body {
   font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   color: var(--ink);
   max-width: 1200px;
-  margin: 0 auto; /* 가운데 정렬 */
-  padding: 150px 16px 32px; /* ← 상단바 높이만큼 top 패딩(아래 .topnav height와 맞추기) */
+  margin: 0 auto;
+  padding: 150px 16px 32px;
   background: var(--bg);
 }
 
-/* ===== 검색 폼 ===== */
 form {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto auto; /* 고정 높이 제거 → 반응형 */
+  grid-template-rows: auto auto;
   gap: 12px;
   align-items: end;
   border-radius: var(--radius);
@@ -105,7 +102,6 @@ input:focus {
   background: #fff;
 }
 
-/* 버튼을 그리드 끝(4열) 하단에 배치하는 현재 레이아웃 유지 */
 button[type="submit"] {
   grid-column: 4 / 5;
   grid-row: 2 / 3;
@@ -126,7 +122,6 @@ button[type="submit"]:active {
   transform: translateY(1px);
 }
 
-/* 모바일에서 2열 → 버튼은 마지막 줄 전체폭 */
 @media (max-width: 860px) {
   form {
     grid-template-columns: repeat(2, 1fr);
@@ -134,7 +129,7 @@ button[type="submit"]:active {
   button[type="submit"] {
     grid-column: 1 / -1;
     grid-row: auto;
-    justify-self: end; /* 오른쪽 정렬 */
+    justify-self: end;
     min-width: 140px;
   }
 }
@@ -143,11 +138,10 @@ button[type="submit"]:active {
     grid-template-columns: 1fr;
   }
   button[type="submit"] {
-    justify-self: stretch; /* 전체폭 버튼 */
+    justify-self: stretch;
   }
 }
 
-/* ===== 결과 리스트 ===== */
 .results {
   margin-top: 24px;
   display: grid;
@@ -156,11 +150,10 @@ button[type="submit"]:active {
 }
 @media (min-width: 780px) {
   .results {
-    grid-template-columns: 1fr 1fr; /* 데스크톱 2열 카드 */
+    grid-template-columns: 1fr 1fr;
   }
 }
 
-/* 카드 스타일: 기존 라운드 + 미세 그림자 */
 .card {
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -176,13 +169,11 @@ button[type="submit"]:active {
   border-color: #dbe3ee;
 }
 
-/* 메타 텍스트(주소, 부가정보) */
 .meta {
   color: var(--muted);
   font-size: 14px;
 }
 
-/* 카드 내 버튼 영역 */
 .card .meta + div {
   margin-top: 10px;
   display: flex;
@@ -190,7 +181,6 @@ button[type="submit"]:active {
   flex-wrap: wrap;
 }
 
-/* 리뷰 보기 버튼(세컨더리 스타일) */
 .card button[type="button"] {
   padding: 8px 10px;
   border-radius: 999px;
@@ -208,7 +198,6 @@ button[type="submit"]:active {
   transform: translateY(1px);
 }
 
-/* 이름/점수 부분 정돈: 강약 대비 */
 .card strong {
   font-size: 16px;
   color: #0f172a;
@@ -221,14 +210,12 @@ button[type="submit"]:active {
   border: 1px solid #e6ebf2;
 }
 
-/* 스크린리더를 위한 포커스 링 보강 */
 button:focus-visible,
 input:focus-visible {
   outline: 3px solid rgba(33, 88, 146, 0.35);
   outline-offset: 2px;
 }
 
-/* 긴 주소/리뷰도 깔끔하게 줄바꿈 */
 .meta,
 .card {
   word-wrap: break-word;

@@ -1,4 +1,3 @@
-# Backend/app/main.py
 import os
 import math
 from typing import Optional, List, Dict, Any
@@ -15,17 +14,15 @@ if not API_KEY:
 
 app = FastAPI(title="Places API", version="1.0.0")
 
-# CORS: 필요 시 프론트 주소로 바꾸세요 (예: http://localhost:5500)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173",
-                   "http://127.0.0.1:5173"],  # 개발 중엔 * 허용, 배포 시 도메인 지정 권장
+                   "http://127.0.0.1:5173"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# 간단 헬스체크
 @app.get("/health")
 def health():
     return {"status": "ok"}
@@ -78,7 +75,6 @@ def api_place_id(q: str = Query(..., description="장소 이름/키워드")):
 @app.get("/api/place-details")
 def api_place_details(place_id: str = Query(...)):
     result = get_place_details(place_id)
-    # 최근 리뷰 5개만 축약해서 반환
     reviews = result.get("reviews") or []
     short_reviews = []
     for rv in reviews[:5]:
@@ -131,11 +127,8 @@ def api_search(
         reviews = int(item.get("user_ratings_total") or 0)
         loc = item.get("geometry", {}).get("location") or {}
         d_km = haversine_km(lat, lng, loc.get("lat", lat), loc.get("lng", lng))
-        # 간단 가중치 (원하시면 조정 가능)
-        # 평점 가중치 1.0, 리뷰 로그 가중치 0.7, 거리 패널티 0.15/km
         return rating * 1.0 + math.log1p(reviews) * 0.7 - d_km * 0.15
 
-    # 필터링
     filtered = []
     for it in results:
         rating = float(it.get("rating") or 0)
@@ -162,6 +155,5 @@ def api_search(
             "types": it.get("types"),
         })
 
-    # 점수로 내림차순 정렬
     filtered.sort(key=lambda x: x["score"], reverse=True)
     return {"count": len(filtered), "items": filtered}
