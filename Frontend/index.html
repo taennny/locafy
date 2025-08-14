@@ -4,15 +4,16 @@
     <meta charset="utf-8" />
     <title>LOCAFY</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-     <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-      <nav class="topnav">
-        <div clas="nav-inner">
+    <nav class="topnav" role="navigation" aria-label="상단바">
+      <div class="nav-inner">
         <div class="title">LOCAFY</div>
-      </nav>
+      </div>
+    </nav>
 
-    <form id="searchForm">
+    <form id="searchForm" autocomplete="off">
       <label>
         키워드
         <input id="q" placeholder="예: 맛집, 카페, 라멘" required />
@@ -43,7 +44,34 @@
       <button type="submit">검색</button>
     </form>
 
-    <div class="results" id="results"></div>
-     <script src="index.js"></script>
+    <div class="results" id="results" aria-live="polite"></div>
+
+    <div id="review-modal-overlay" class="rm-overlay" aria-hidden="true"></div>
+
+    <div
+      id="review-modal"
+      class="rm-dialog"
+      role="dialog"
+      aria-labelledby="review-dialog-title"
+      aria-modal="true"
+      aria-hidden="true"
+    >
+      <div class="rm-card" data-scroll="paper">
+        <header class="rm-header">
+          <h2 id="review-dialog-title">리뷰</h2>
+          <button class="rm-close" aria-label="닫기">&times;</button>
+        </header>
+
+        <section id="review-dialog-content" class="rm-content" tabindex="-1">
+          <div class="rm-empty">로딩 중...</div>
+        </section>
+
+        <footer class="rm-actions">
+          <button class="rm-secondary" data-action="cancel">닫기</button>
+        </footer>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
   </body>
 </html>

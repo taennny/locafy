@@ -27,7 +27,6 @@
   z-index: 1000;
 
   display: flex;
-  align-items: center;
 
   background: var(--nav-bg);
   backdrop-filter: saturate(150%) blur(10px);
@@ -37,23 +36,23 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08),
     inset 0 -1px 0 rgba(255, 255, 255, 0.04);
 }
+
 .topnav .nav-inner {
   width: min(1100px, 100%);
-  margin: 0 auto;
-  padding: 0 20px;
+  margin: 0 50px;
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
 }
+
 .topnav .title {
   font-weight: 700;
   letter-spacing: 0.08em;
   font-size: 25px;
   color: rgba(255, 255, 255, 0.92);
   text-transform: uppercase;
-  padding-left: 40px;
+  margin-left: 0;
+  padding-left: 0;
 }
 
 body {
@@ -220,4 +219,155 @@ input:focus-visible {
 .card {
   word-wrap: break-word;
   overflow-wrap: anywhere;
+}
+
+/* =========================
+   Review Modal (rm-*)
+   ========================= */
+
+.rm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 2000;
+}
+
+.rm-dialog {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 2001;
+}
+
+.rm-card {
+  width: min(720px, 92vw);
+  max-height: 86vh;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  display: grid;
+  grid-template-rows: auto minmax(160px, 1fr) auto;
+  overflow: hidden;
+}
+
+.rm-header,
+.rm-actions {
+  padding: 16px 20px;
+  background: #fff;
+}
+
+.rm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+}
+
+.rm-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+}
+
+.rm-content {
+  padding: 16px 20px;
+  overflow: auto;
+  outline: none;
+}
+
+.rm-close {
+  border: none;
+  background: transparent;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  color: #777;
+}
+.rm-close:hover {
+  color: #333;
+}
+
+.rm-actions {
+  border-top: 1px solid #eee;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.rm-actions .rm-secondary {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  cursor: pointer;
+}
+.rm-actions .rm-secondary:hover {
+  background: #f2f2f2;
+}
+
+.rm-overlay[aria-hidden="false"],
+.rm-dialog[aria-hidden="false"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+body.rm-lock {
+  overflow: hidden;
+}
+
+.rm-review {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+
+.rm-review .rm-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.rm-stars {
+  font-size: 14px;
+}
+
+.rm-text {
+  color: #222;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.rm-empty {
+  color: #666;
+  text-align: center;
+  padding: 24px 0;
+}
+
+@media (max-width: 480px) {
+  .rm-card {
+    width: 94vw;
+  }
+}
+
+.rm-dialog :focus-visible {
+  outline: 3px solid rgba(33, 88, 146, 0.35);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rm-overlay,
+  .rm-dialog {
+    transition: none;
+  }
 }
